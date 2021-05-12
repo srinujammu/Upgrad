@@ -1,0 +1,133 @@
+Given a nested list, write python code to flatten the list.
+Note: The input list will strictly have 2 levels, i.e. the list will be of the form [[1,2],[3,4]]. Inputs like [1,[2,3]] and [[1,[2,3],4],5] are not applicable.
+
+Nest_list = [[1,2,3],[4,5,6],[7,8,9]] #List to be flattened
+flat_list = []
+
+for i in range(len(Nest_list)): #Traversing through the main list
+  for j in range (len(Nest_list[i])): #Traversing through each sublist
+    flat_list.append(Nest_list[i][j]) #Appending elements into our flat_list
+    
+print("Flattened List:",flat_list)
+--------------------------------
+Given a list of positive integers, you have to find numbers divisible by 3 and replace them with their squares. 
+For example, consider the list below:
+Input: [1,2,3,4,5,6]
+The output for the above list would be: [1,2,9,4,5,36]. Because 3 and 6 were divisible by 3, these numbers were replaced with their squares.
+-------------------------
+import ast,sys
+input_str = sys.stdin.read()
+input_list = ast.literal_eval(input_str)
+for x in range(len(input_list)):
+    if input_list[x] % 3 == 0: input_list[x] = input_list[x]**2
+
+print(input_list)
+--------------------------
+A weird sum
+Description
+Write a program that computes the value of n+nn+nnn+nnnn with a given digit as the value of n.
+For example, if n=9 , then you have to find the value of 9+99+999+9999.
+
+---------------------------
+n=input()
+total=0
+for i in range(0, 4):
+    total += int(str(n) + i*str(n))
+    
+print(total)
+
+alternative:
+n=input()
+n1 = int( "%s" % n)
+n2 = int( "%s%s" % (n,n) )
+n3 = int( "%s%s%s" % (n,n,n) )
+n4 = int( "%s%s%s%s" % (n,n,n,n) )
+
+print (n1+n2+n3+n4)
+
+---------------------------------
+Frequent Letters
+Description
+Given a string, you have to find the first n most frequent characters in it.
+
+You have to print these n letters in alphabetically sorted order.
+
+The input will contain two lines, the first line will contain a string and the second line will contain the letter n.
+
+The output should be a list of n most frequent letters in alphabetically sorted order.
+
+Note: If there are two letters with the same frequency, then the alphabetically preceding alphabet should be picked first. (For example, in "aabbccc", if n=2, then output list would have c and a.)
+
+Sample Input:
+
+ddddaacccb
+
+3
+
+Sample Output:
+
+---------------------
+from collections import Counter
+from heapq import nlargest
+
+def ordered_letters(s, n):
+    ctr = Counter(c.lower() for c in s if c.isalpha())
+
+    def sort_key(x):
+        return (x[1], -ord(x[0]))
+    final_data = []
+    
+    for idx, (letter, count) in enumerate(nlargest(n, ctr.items(), key=sort_key), 1):
+        final_data.append(letter)
+    
+    final_data.sort()
+    print(final_data)
+
+ordered_letters(string,n)
+
+# Alternative
+
+string=input()
+n=int(input())
+import collections
+out=[collections.Counter(string).most_common(i+1)[i][0] for i in range(n)]
+out.sort()
+print(out)
+
+---------------------------------
+2D array
+Description
+Write Python code which takes 2 numbers x and y as input and generates a 2-dimensional numpy array where value in the i-th row and j-th column of the array should be (i+j)/2.
+Note: i=0,1,...x-1 and j=0,1....,y-1
+The input will have two lines with x and y respectively.
+The output should be a 2D numpy array.
+Sample Input:
+3
+4
+Sample Output:
+
+------------------------------------
+
+import numpy as np
+x=3
+y=4
+#write your code here
+def d_array(r,c):
+    array = [[(i+j)/2 for j in range(y)] for i in range(x)]
+    a = np.matrix(array)
+    return a
+
+print(d_array(x,y))
+
+# Alternative
+
+x=int(input())
+y=int(input())
+from numpy import zeros
+a = zeros([x,y])
+for row in range(x):
+    for col in range(y):
+        a[row][col]= (row+col)/2
+print(a)
+
+
